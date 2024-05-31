@@ -77,9 +77,26 @@ const CourseInfo = {
   ];
   
   function getLearnerData(course, ag, submissions) {
-    // here, we would process this data to achieve the desired result.
+    console.log(ag)
     let ProcessedLearners = {};
+    let bestGradePossible = 0
+    const currentDate = new Date();
+AssignmentGroup.assignments.forEach(assignment => {
+    if (new Date(assignment.due_at) <= currentDate) {
+        bestGradePossible += assignment.points_possible;
+    }
+});
     // let sum = 0
+    // for(const abc of ag){
+        for (abc in ag ){
+        //  bestGradePossible += abc.points_possible;
+        if (ag.hasOwnProperty(abc)){
+            const assignment = ag[abc];
+            bestGradePossible += abc.points_possible;
+        }
+        
+
+    }
    for (xyz of submissions){
     const learnerId = xyz.learner_id;
     const totalpoints = xyz.submission.score;
@@ -88,22 +105,20 @@ const CourseInfo = {
         ProcessedLearners[learnerId] = {
             id: learnerId,
             totalPointsEarned: 0,  
-            assignments: assignedProject,
-            submissions: []
+            assignments:  0,
+            avg: []
         };   
+    //    let weightedgrad = ad.find(w => w.id === assignmentID).points_possible / bestGradePossible;
+        // let weightedgrade = 1;
      } 
-     ProcessedLearners[learnerId].totalPointsEarned += totalpoints;
-     ProcessedLearners[learnerId].submissions.push({
+     let weightedgrade = 1;
+     ProcessedLearners[learnerId].totalPointsEarned += totalpoints * weightedgrade;
+     ProcessedLearners[learnerId].avg.push({
         assignmentID : xyz.assignment_id,
         score: totalpoints
      });
     }
-        for(abc of ag){
-            const mostPoints = abc.points_possible;
-
-        
     return Object.values(ProcessedLearners);
-        }
   }
   const results = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
   console.log(results);
