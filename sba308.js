@@ -106,7 +106,7 @@ AssignmentGroup.assignments.forEach(assignment => {
             id: learnerId,
             totalPointsEarned: 0,  
             assignments:  0,
-            avg: []
+            avg: {}
         };   
     //    let weightedgrad = ad.find(w => w.id === assignmentID).points_possible / bestGradePossible;
         // let weightedgrade = 1;
