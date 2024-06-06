@@ -89,7 +89,7 @@ function getLearnerData(course, ag, submissions) {
     const assignmentId = submission.assignment_id;
     const score = submission.submission.score;
 
-    const assignment = ag.assignments;
+    const assignment = ag.assignments.find(a=> a.id === assignmentId);
 
     if (new Date(assignment.due_at) <= currentDate) {
       if (!ProcessedLearners[learnerId]) {
@@ -116,4 +116,4 @@ function getLearnerData(course, ag, submissions) {
 }
 
 const results = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-console.log(results);
+console.log(results)
